@@ -1,0 +1,8 @@
+annotationLibrary: "none"
+artifactDescription: "DIH Common"
+artifactId: "common"
+dateLibrary: "java8"
+documentationProvider: "none"
+groupId: "dk.rdpl.dih"
+modelPackage: "dk.rdpl.dih.common.model"
+serializationLibrary: "jackson"
