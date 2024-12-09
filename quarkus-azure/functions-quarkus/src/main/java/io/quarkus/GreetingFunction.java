@@ -10,4 +10,8 @@ public class GreetingFunction {
     return name.getProductID();
   }
 
+  @Funq("funqyHello")
+  public String funqyHello() {
+    return "hello funqy";
+  }
 }

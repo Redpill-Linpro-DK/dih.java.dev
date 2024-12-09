@@ -2,9 +2,14 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.contoso</groupId>
+  <parent>
+    <groupId>dk.rdpl.dih</groupId>
+    <artifactId>common.parent-pom</artifactId>
+    <relativePath>../../pom.xml</relativePath>
+    <version>1.0.0</version>
+  </parent>
   <artifactId>quarkus-azure-function</artifactId>
-  <version>1.0.0</version>
+  <version>${parent.version}</version>
   <properties>
     <azure.functions.maven.plugin.version>1.22.0</azure.functions.maven.plugin.version>
     <compiler-plugin.version>3.12.1</compiler-plugin.version>
