@@ -11,5 +11,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
+      - name: Install dependencies
+        run: mvn clean install
       - name: Run tests
-        run: mvn clean test
+        run: mvn test
