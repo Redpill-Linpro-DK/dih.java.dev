@@ -9,7 +9,7 @@
     <description>DIH Parent Common</description>
     <modules>
       <module>dih.common</module>
-      <module>functions-quarkus</module>
+      <module>dih.function</module>
     </modules>
     <build>
         <pluginManagement>
