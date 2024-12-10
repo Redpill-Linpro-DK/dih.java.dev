@@ -5,7 +5,7 @@
   <parent>
     <groupId>dk.rdpl.dih</groupId>
     <artifactId>common.parent-pom</artifactId>
-    <relativePath>../../pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
     <version>1.0.0</version>
   </parent>
   <artifactId>quarkus-azure-function</artifactId>
