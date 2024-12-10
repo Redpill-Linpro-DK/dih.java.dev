@@ -1,5 +1,8 @@
 name: "Testing project"
-on: push
+on:
+  push:
+    branches-ignore:
+      - main
 jobs:
   test_package:
     runs-on: ubuntu-latest

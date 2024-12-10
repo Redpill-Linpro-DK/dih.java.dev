@@ -1,0 +1,46 @@
+name: "Build and Deploy to Test"
+on:
+  push:
+    branches:
+      - test_bicep_function_app
+
+jobs:
+  deploy_infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: main
+
+      - name: Checkout common repository
+        uses: actions/checkout@v4
+        with:
+          repository: Redpill-Linpro-DK/marw-test-azure-deploy
+          token: ${{ secrets.DIH_FAIR_COMMON_REPO_PAT }}
+          path: common-repo
+
+      - name: Load env
+        uses: ./common-repo/.github/actions/loadEnvVariables
+        with:
+          rootDir: common-repo
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.DIH_FAIR_AZURE_CREDENTIALS_DEV }}
+
+  # deploy_function:
+  #   needs: deploy_infrastructure
+  #   runs-on: ubuntu-latest
+  #   name: "Build and Test mvn project"
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Set up JDK 17
+  #       uses: actions/setup-java@v4
+  #       with:
+  #         java-version: "17"
+  #         distribution: "temurin"
+  #     - name: Install dependencies
+  #       run: mvn clean install
+  #     - name: Run tests
+  #       run: mvn test
