@@ -7,6 +7,8 @@ on:
 jobs:
   deploy_infrastructure:
     runs-on: ubuntu-latest
+    env:
+      resourceName: dih.function
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,6 +30,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.DIH_FAIR_AZURE_CREDENTIALS_DEV }}
+
+      - name: Ensure the resource group exists
+        run: |
+          echo  "Deploying in $resourceLocation resource name: $resourceName"
+          az group create --name $resourceName --location $resourceLocation
 
   # deploy_function:
   #   needs: deploy_infrastructure
