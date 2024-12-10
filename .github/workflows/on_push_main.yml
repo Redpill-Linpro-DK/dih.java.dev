@@ -1,18 +1,16 @@
-name: "Build and Deploy to Test"
+name: "Build and Deploy"
 on:
   push:
     branches:
-      - test_bicep_function_app
+      - main
 
 jobs:
   deploy_infrastructure:
     runs-on: ubuntu-latest
     env:
-      resourceName: dih.function
+      componentName: i
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: main
 
       - name: Checkout common repository
         uses: actions/checkout@v4
@@ -33,8 +31,17 @@ jobs:
 
       - name: Ensure the resource group exists
         run: |
-          echo  "Deploying in $resourceLocation resource name: $resourceName"
-          az group create --name $resourceName --location $resourceLocation
+          echo ">>> Creating group resource in $resourceLocation with name: dih.function.app-$commonResourceGroupName"
+          az group create --name dih.function.app-$commonResourceGroupName --location $resourceLocation
+
+      - name: Deploy function app
+        run: |
+          az deployment group create \
+          --resource-group dih.function.app-$commonResourceGroupName \
+          --template-file ./iac/main.bicep \
+          --parameters componentName=$componentName applicationName="$applicationName" env=$environment uniqueDeployId=$uniqueDeployId aadAppClientId=$aadAppClientId postfixCount=${postfixCount} tags="{\"environment\": \"dev\"}" \
+          location=$resourceLocation \
+          developerAccessAadGroupId=$developerAccessAadGroupId
 
   # deploy_function:
   #   needs: deploy_infrastructure

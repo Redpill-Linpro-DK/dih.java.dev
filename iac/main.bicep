@@ -7,13 +7,12 @@ param location string
 param aadAppClientId string
 param tags object
 param developerAccessAadGroupId string
-param useLocalKeyVault bool
-param useGlobalKeyVault bool
+param useLocalKeyVault bool = false
+param useGlobalKeyVault bool = false
 param internalNetworkName string = ''
-param allowVnetUsage bool
-param pathToModule string = './common-repo/Source/IaC/shared_modules/dih-functionapp.bicep'
+param allowVnetUsage bool = false
 
-module functionAppModule '${pathToModule}' = {
+module functionAppModule '../common-repo/Source/IaC/shared_modules/dih-functionapp.bicep' = {
   name: 'functionApp'
   params: {
     applicationName: applicationName
