@@ -1,5 +1,10 @@
 name: "Testing project"
-on: push
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "**.java"
 jobs:
   test_package:
     runs-on: ubuntu-latest
