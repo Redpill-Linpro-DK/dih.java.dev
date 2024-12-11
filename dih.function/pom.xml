@@ -14,9 +14,9 @@
     <compiler-plugin.version>3.12.1</compiler-plugin.version>
     <function>quarkus</function>
     <!-- prepend resource group name to function app name to avoid naming conflict -->
-    <functionAppName>${resourceGroup}-functions-quarkus</functionAppName>
-    <functionAppRegion></functionAppRegion>
-    <functionSubscriptionId></functionSubscriptionId>
+    <functionAppName>${functionAppResource}</functionAppName>
+    <functionAppRegion>${resourceLocation}</functionAppRegion>
+    <functionSubscriptionId>${subscriptionId}</functionSubscriptionId>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -75,23 +75,23 @@
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.1.0</version>
         <executions>
-          <execution>
-            <id>enforce-property</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireProperty>
-                  <property>resourceGroup</property>
-                  <message>You must set a resourceGroup property!</message>
-                  <regex>^[a-zA-Z0-9-]*{9,16}$</regex>
-                  <regexMessage>The resourceGroup property must have between 9 - 16 characters and consist only of letters, numbers, and hyphens.</regexMessage>
-                </requireProperty>
-              </rules>
-              <fail>true</fail>
-            </configuration>
-          </execution>
+          <!-- <execution> -->
+          <!--   <id>enforce-property</id> -->
+          <!--   <goals> -->
+          <!--     <goal>enforce</goal> -->
+          <!--   </goals> -->
+          <!--   <configuration> -->
+          <!--     <rules> -->
+          <!--       <requireProperty> -->
+          <!--         <property>resourceGroupName</property> -->
+          <!--         <message>You must set a resourceGroupeName property!</message> -->
+          <!--         <regex>^[a-zA-Z0-9-]*{9,16}$</regex> -->
+          <!--         <regexMessage>The resourceGroupName property must have between 9 - 16 characters and consist only of letters, numbers, and hyphens.</regexMessage> -->
+          <!--       </requireProperty> -->
+          <!--     </rules> -->
+          <!--     <fail>true</fail> -->
+          <!--   </configuration> -->
+          <!-- </execution> -->
         </executions>
       </plugin>
       <plugin>
@@ -126,17 +126,16 @@
         <version>${azure.functions.maven.plugin.version}</version>
         <configuration>
           <auth>
-            <type>device_code</type>
-            <tenant>${tenantId}</tenant>
+            <type>azure_cli</type>
           </auth>
           <hostJson>${stagingDirectory}/host.json</hostJson>
           <localSettingsJson>${stagingDirectory}/local.settings.json</localSettingsJson>
           <appName>${functionAppName}</appName>
-          <region>${functionAppRegion}</region>
-          <resourceGroup>${resourceGroup}</resourceGroup>
+          <region>${resourceLocation}</region>
+          <resourceGroup>${resourceGroupName}</resourceGroup>
           <subscriptionId>${functionSubscriptionId}</subscriptionId>
           <runtime>
-            <os>windows</os>
+            <os>linux</os>
             <javaVersion>17</javaVersion>
           </runtime>
           <appSettings>
