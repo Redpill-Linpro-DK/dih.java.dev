@@ -11,10 +11,10 @@ class GreetingTest {
   @Test
   void testHelloEndpoint() {
     given()
-        .when().get("/hello")
+        .when().get("/ping")
         .then()
         .statusCode(200)
-        .body(is("hello dih $$$$$$"));
+        .body(is("pong"));
   }
 
 }

@@ -8,15 +8,26 @@ on:
 jobs:
   test_package:
     runs-on: ubuntu-latest
-    name: "Build and Test mvn project"
+    name: "Test project"
     steps:
+      - name: Checkout common repository
+        uses: actions/checkout@v4
+        with:
+          repository: Redpill-Linpro-DK/marw-test-azure-deploy
+          token: ${{ secrets.DIH_FAIR_COMMON_REPO_PAT }}
+          path: common-repo
+
+      - name: Load env
+        uses: ./common-repo/.github/actions/loadEnvVariables
+        with:
+          rootDir: common-repo
+
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Install dependencies
-        run: mvn clean install
       - name: Run tests
-        run: mvn test
+        run: mvn clean test -DfunctionAppName=dihfunction-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
