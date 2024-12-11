@@ -30,4 +30,4 @@ jobs:
           java-version: "17"
           distribution: "temurin"
       - name: Run tests
-        run: mvn clean test -DfunctionAppName=dihfunction-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
+        run: mvn clean test -DfunctionAppName=dihfunction-local -DresourceGroupName=dih.function.app-local -DresourceLocation=$resourceLocation
