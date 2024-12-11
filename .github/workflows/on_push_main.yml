@@ -33,7 +33,7 @@ jobs:
       - name: Ensure the resource group exists
         run: |
           echo ">>> Creating group resource in $resourceLocation with name: dih.function.app-$commonResourceGroupName"
-          az group create --name dih.function.app-$commonResourceGroupName --location $resourceLocation
+          az group create --name dih.function.app-$environment-$commonResourceGroupName --location $resourceLocation
 
       - name: Deploy function app
         run: |
@@ -69,7 +69,7 @@ jobs:
           java-version: "17"
           distribution: "temurin"
       - name: Package app
-        run: ./dih.function/mvnw -f dih.function/pom.xml clean package -DfunctionAppName=dihfunctionapp-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
+        run: ./dih.function/mvnw -f dih.function/pom.xml clean package -DfunctionAppName=dihfunctionapp-$environment-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
 
       - name: Log in to Azure
         uses: azure/login@v1
@@ -77,4 +77,4 @@ jobs:
           creds: ${{ secrets.DIH_FAIR_AZURE_CREDENTIALS_DEV }}
 
       - name: Run deploy
-        run: ./dih.function/mvnw -f dih.function/pom.xml quarkus:deploy -DfunctionAppName=dihfunctionapp-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
+        run: ./dih.function/mvnw -f dih.function/pom.xml quarkus:deploy -DfunctionAppName=dihfunctionapp-$environment-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
