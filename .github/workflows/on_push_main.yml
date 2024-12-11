@@ -2,7 +2,7 @@ name: "Build and Deploy"
 on:
   push:
     branches:
-      - test_deploying_the_function
+      - main
 
 jobs:
   deploy_infrastructure:
