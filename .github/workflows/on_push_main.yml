@@ -50,17 +50,10 @@ jobs:
     name: "Package and Deploy function app"
 
     steps:
-      - name: Checkout common repository
-        uses: actions/checkout@v4
-        with:
-          repository: Redpill-Linpro-DK/marw-test-azure-deploy
-          token: ${{ secrets.DIH_FAIR_COMMON_REPO_PAT }}
-          path: common-repo
-
       - name: Load env
-        uses: ./common-repo/.github/actions/loadEnvVariables
+        uses: Redpill-Linpro-DK/marw-test-azure-deploy/.github/actions/loadCommonVariables@main
         with:
-          rootDir: common-repo
+          PAT: ${{ secrets.DIH_FAIR_COMMON_REPO_PAT }}
 
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -75,6 +68,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.DIH_FAIR_AZURE_CREDENTIALS_DEV }}
-
       - name: Run deploy
+
         run: ./dih.function/mvnw -f dih.function/pom.xml quarkus:deploy -DfunctionAppName=dihfunctionapp-$environment-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
