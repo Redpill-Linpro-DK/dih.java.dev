@@ -61,8 +61,9 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - name: Package app
-        run: ./dih.function/mvnw -f dih.function/pom.xml clean package -DfunctionAppName=dihfunctionapp-$environment-$applicationName -DresourceGroupName=dih.function.app-$commonResourceGroupName -DresourceLocation=$resourceLocation
+
+      - name: Install common dependency
+        run: mvn clean install
 
       - name: Log in to Azure
         uses: azure/login@v1

@@ -6,7 +6,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusIntegrationTest
-public class GreetingIT {
+public class PingIT {
 
   @Test
   public void testIt() {
