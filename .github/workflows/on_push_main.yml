@@ -33,7 +33,7 @@ jobs:
       - name: Ensure the resource group exists
         run: |
           echo ">>> Creating group resource in $resourceLocation with name: dih.function.app-$commonResourceGroupName"
-          az group create --name dih.function.app-$environment-$commonResourceGroupName --location $resourceLocation
+          az group create --name dih.function.app-$commonResourceGroupName --location $resourceLocation
 
       - name: Deploy function app
         run: |
